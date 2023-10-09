@@ -1,0 +1,22 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: dependency-cite
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Richard
+    family-names: Littauer
+    email: richard.littauer@gmail.com
+    affiliation: Unaffiliated
+    orcid: 'https://orcid.org/0000-0001-5428-7535'
+repository-code: 'https://github.com/RichardLitt/dependency-cite/'
+abstract: 'Cite all of your software dependencies in your work. '
+keywords:
+  - citation
+  - cite
+  - open-science
+license: MIT
