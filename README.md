@@ -63,6 +63,3 @@ The script will generate citations in the following format:
 
 If you'd like to contribute to this project, please open an issue or submit a pull request.
 
----
-
-Please adjust the README as needed based on your script's name, additional details, or any other specifics that might be relevant to your context.
