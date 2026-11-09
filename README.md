@@ -62,7 +62,7 @@ python cite_dependencies.py --check --cited-in paper.bib --output missing.bib
 | `--json` | Print the `--check` report as JSON. |
 | `--asked-to-be-cited` | Only include dependencies that have asked to be cited (see below). Applies to the report, the exit code and any written citations. |
 
-`--check` exits with `0` if everything is cited, `1` if any dependency is missing, and `2` if the check could not be completed, so it can be used in CI.
+`--check` exits with `0` if everything is cited, `1` if any dependency is missing, and `2` if nothing is missing but the check could not be completed, so it can be used in CI.
 
 ## Where dependencies come from
 
@@ -98,7 +98,21 @@ Docs means pages under `doc/` or `docs/` with a name like `citing` or `citation`
 
 Flagged dependencies are for a person to review. They appear in a "Needs review" list when the script runs, as a `% NEEDS REVIEW` comment in BibTeX, as `notes` in CFF, and under `needs_review` and `review` in JSON.
 
-## Notes
+## Known limitations
+
+### Finding dependencies
+
+- Without a lockfile, only exact pins in your own manifest are respected. Everything below them resolves to the latest version, so the dependencies checked may differ from what you would install.
+- `-r` includes in `requirements.txt`, optional dependencies and dependency groups in `pyproject.toml`, and optional extras of dependencies are not followed.
+- An SBOM is used as it is, and nothing is added to it.
+- `go.mod` files from before Go 1.17 list only part of the dependency tree, but are treated as complete.
+- If the resolver fails for a dependency, whatever that dependency pulls in is missing from the results. The report says the check is incomplete.
+- `uv.lock`, `poetry.lock`, `package-lock.json`, `pyproject.toml`, `Cargo.lock`, `Cargo.toml`, `Gemfile.lock` and SPDX input have unit tests at most, and have not been run on a real project's files.
+
+### Reading citations
+
+- Any DOI in the docs counts as asking to be cited, including on a docs index page, where it may only be a reference. NetworkX's `doc/index.rst`, for example, lists a paper it merely references, so NetworkX gets that paper's DOI and is not flagged.
+- The script compares dependencies against your own citations. It does not check whether your dependencies have cited their own dependencies.
 
 - Citation files are read from each repository's default branch, so they may be newer than the version you use.
 - Citation files and READMEs can only be fetched from GitHub and GitLab.
